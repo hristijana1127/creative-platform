@@ -1,0 +1,35 @@
+{
+    "user":[
+        {
+        "username": "CreativeTestUser",
+        "email": "test@example.com",
+        "passwordHash": "$2a$10$FakeHashForTestingOnly",
+        "name":"Sunghoon",
+        "profilePicture":"",
+        "badges":["bestPresident"],
+        "createdAt":"2026-07-16T00:00:00.000Z",
+        "lastLogin": "2026-07-16T00:00:00.000Z",
+        "notificationSettings": {
+            "onFollow":false,
+            "onComment":false,
+            "onRemixRequest":false
+        }
+        }
+    ],
+    "contest":[{
+        "theme":"comic-book-realism",
+        "description":"The view on how comic books effect life",
+        "startDate":"2026-07-01T00:00:00.000Z",
+        "endDate":"2026-09-01T00:00:00.000Z",
+        "isActive": true
+    }],
+    "post":[{
+        "title":"Neo horizon",
+        "description":"Futuristic neocity artwork",
+        "format":"image",
+        "fileUrl":"https://i.pinimg.com/736x/23/f5/2f/23f52fb9a1d1ee99a44f25101a844168.jpg",
+        "userId":"6a591816e9fa2d9c4ff1ba51"
+    }]
+
+
+}
