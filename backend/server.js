@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -12,11 +13,11 @@ const app = express();
 app.use(helmet());
 
 const limiter = rateLimit({
-    windowsMs: 15 * 60 * 100,
+    windowMs: 15 * 60 * 100,
     max: 100,
     message: "Too many requests from this IP, pleasetry again after 15 minutes."
 });
-app.use('/api,limiter');
+app.use('/api',limiter);
 
 //DATABASE CONNECTION
 mongoose.connect(process.env.MONGODB_URI )
@@ -25,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URI )
 
 //MIDDLEWARES
 app.use(cors({
-    origin: 'http://localhost:3000', //prep for react
+    origin: 'http://localhost:5173', //prep for react
     credentials: true
 }));
 app.use(express.json());
@@ -39,8 +40,10 @@ app.use('/api/posts', require('./routes/posts'));
 app.use("/api/contests", require('./routes/constest'));
 app.use("/api/users", require('./routes/users'))
 app.use("/api/users", require('./routes/follows'))
-app.use("/api/post",require('./routes.comments'));
 app.use("/api/notifications", require('./routes/notifications'));
+app.use("/api/admin",require('./routes/admin'));
+app.use("/api/comments", require('./routes/comments'));
+app.use("/api/contest-votes",require('./routes/votes'));
 //GLOBAL ERROR HANDLING MIDDLEWARE
 app.use((err, req, res, next) => {
     console.log("Global Error Caught: ", err.stack);

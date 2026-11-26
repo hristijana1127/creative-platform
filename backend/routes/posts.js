@@ -62,11 +62,23 @@ router.get('/',async(req, res) => {
         res.status(500).json({message:"Error fetching posts", error:error.message});
     }
 });
+//GET /api/posts/user/:userId
+router.get('/user/:userId', async (req, res) => {
+    try {
+        const posts = await Post.find({ userId: req.params.userId })
+            .populate('userId', 'username name profilePicture')
+            .populate('parentPostId','title')
+            .sort({ createdAt: -1 });
 
-module.exports = router;
-
-
-
+        res.json(posts);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching user posts", 
+            error: error.message 
+        });
+    }
+});
+//GET /api/posts/:id/remixes
 router.get('/:id/remixes', async(req, res) => {
     try{
         const originalPostId = req.params.id;
@@ -171,3 +183,23 @@ router.get('/', async(req, res) => {
         res.status(500).json({message:"Error fetching posts feed.",error:error.message});
     }
 })
+module.exports = router;
+
+//GET CONTESTS POSTS
+router.get('/:contestId', async(req, res) => {
+    try {
+        const posts = await Post.find({ contestId: req.params.contestId })
+            .populate('userId', 'username name profilePicture')
+            .populate('parentPostId','title')
+            .sort({ createdAt: -1 });
+
+        res.json(posts);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching user posts", 
+            error: error.message 
+        });
+    }
+});
+
+

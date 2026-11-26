@@ -9,7 +9,7 @@ import {
   StyledDrawer,
   StyledList,
   StyledListItem,
-  StyledToolbar,
+  
 } from "./styles";
 import Button from "../Button";
 import ThemeToggle from "../ThemeToggle";
@@ -31,36 +31,51 @@ const Navbar = () => {
   };
 
   return (
-    <StyledDrawer variant="permanent">
-      <StyledToolbar />
+   <StyledDrawer variant="permanent" anchor="top">
+    <StyledContainer>
 
-      <StyledContainer sx={{ overflow: "auto" }}>
-        <StyledList>
-          {NAV_ITEMS.map((item) => {
-            const isActive = location.pathname === item.path;
+     
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          gap: 2,
+          width: "100%",
+        }}
+      >
+        <ThemeToggle />
 
-            return (
-              <StyledListItem
-                key={item.text}
-                component={Link}
-                to={item.path}
-                isActive={isActive}
-              >
-                {item?.icon}
-                <ListItemText primary={item.text} />
-              </StyledListItem>
-            );
-          })}
-        </StyledList>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
+      </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <ThemeToggle />
-          <Button variant="contained" color="error" onClick={handleLogout}>
-            Log Out
-          </Button>
-        </Box>
-      </StyledContainer>
-    </StyledDrawer>
+     
+      <StyledList>
+        {NAV_ITEMS.map((item) => {
+          const isActive = location.pathname === item.path;
+
+          return (
+            <StyledListItem
+              key={item.text}
+              component={Link}
+              to={item.path}
+              isActive={isActive}
+            >
+              {item.icon}
+              <ListItemText primary={item.text} />
+            </StyledListItem>
+          );
+        })}
+      </StyledList>
+
+    </StyledContainer>
+  </StyledDrawer>
   );
 };
 

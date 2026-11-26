@@ -14,10 +14,10 @@ router.get('/:id', async(req, res) => {
             return res.status(404).json({message:"User not found."});
         }
 
-        const userPost = (await Post.find({userId: req.params.id})).toSorted({ createdAt: -1});
+        const userPosts = await Post.find({ userId: req.params.id }).sort({ createdAt: -1 });
 
         res.json({
-            user,
+            ...user.toObject(),
             totalPosts: userPosts.length,
             post: userPosts
         });

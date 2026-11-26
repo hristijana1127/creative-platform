@@ -8,30 +8,33 @@ import {
     Box
 } from '@mui/material';
 
-export const StyledToolbar = styled(Toolbar)(({ theme }) => ({}));
 
 export const StyledDrawer = styled(Drawer)(({ theme }) => ({
-    width: 240,
-    flexShrink:0,
-    "& .MultiDrawer-paper":{
-        backgroundColor: theme.palette.background.default,
-        width: 240,
-        boxSizing: "border-box",
-    },
+  flexShrink: 0,
+
+  "& .MuiDrawer-paper": {
+    backgroundColor: theme.palette.background.default,
+    boxSizing: "border-box",
+    height: "130px",
+     zIndex: 1200,
+  },
 }));
 export const StyledContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
+  alignItems: "center",
+  justifyContent: "center",
   height: "100%",
-  padding: "1rem",
-  paddingBottom: "2rem",
+  boxSizing: "border-box",
+  padding: "0 1rem",
 }));
 
 export const StyledList = styled(List)(({ theme }) => ({
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
+  alignItems: "center",
   gap: 5,
+  padding: 0,
 }));
 
 export const StyledListItem = styled(ListItem, {
@@ -50,6 +53,7 @@ export const StyledListItem = styled(ListItem, {
 
   "& .MuiTypography-root": {
     fontWeight: isActive ? 600 : 400,
+    textAlign: "center",
   },
 
   "&:hover": {

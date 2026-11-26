@@ -94,7 +94,7 @@ router.get('/:id/following',async(req, res) =>{
         res.status(500).json({message : "Error fetching following list.", error: error.message});
     }
 });
-module.exports = router;
+
 
 
 router.get('/feed',authMiddleware, async(req,res) =>{
@@ -126,3 +126,4 @@ router.get('/feed',authMiddleware, async(req,res) =>{
         res.status(500).json({message:"Error fetching personalized feed.",error:error.message});
     }
 });
+module.exports = router;
