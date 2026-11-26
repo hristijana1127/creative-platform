@@ -7,19 +7,20 @@ import {
 } from "react-router-dom";
 
 import Layout from '../components/ui/Layout';
-import {AuthProvider} from '../context/AuthProvider';
+
 import AuthContext from "../context/AuthProvider";
-import {appRoutes,authRoutes} from '../routes/routes';
+import AdminLayout from "../components/AdminLayout";
+import {adminRoutes, appRoutes,authRoutes} from '../routes/routes';
 import { useContext} from "react";
 import NotFound from '../pages/not-found';
 
-const allRoutes = [...appRoutes,...authRoutes];
+const allRoutes = [...appRoutes,...authRoutes,...adminRoutes];
 const ProtectedRoute = ()  =>{
     const {auth, isLoading} = useContext(AuthContext);
 
     if(isLoading){
         //return null;
-        return <div>Loading...</div>
+        return <div className="flex justify-center p-8">Loading...</div>
     }
     if(!auth?.token){
         return <Navigate to="/login" replace/>;
@@ -29,6 +30,28 @@ const ProtectedRoute = ()  =>{
             <Outlet/>
         </Layout>
     )
+};
+const AdminRoute = () => {
+    const {auth, isLoading} = useContext(AuthContext);
+    if(isLoading){
+        return(
+            <div className = "flex justify-center p-8">
+                Loading...
+            </div>
+        )
+
+
+    }
+    if(!auth.token){
+        return <Navigate to='/login' replace/>;
+    }
+    if(auth?.user?.role !== "admin"){
+        return <Navigate to="/" replace/>;
+    }
+    return(
+        <AdminLayout/>
+           
+    );
 };
 const GuestRoute = () => {
     const {auth,isLoading} = useContext(AuthContext);
@@ -51,12 +74,20 @@ export const router = createBrowserRouter(
                 ))}
 
             </Route>
+            <Route element={<AdminRoute/>}>
+                {adminRoutes.map((route) =>(
+                    <Route key={route.path} path={route.path} element={route.element}/>
+                ))}
+            </Route>
             <Route element={<GuestRoute/>}>
                 {authRoutes.map((route) =>(
                     <Route key={route.path} path={route.path} element={route.element}/>
                 ))}
             </Route>
+
             <Route path="*" element={<NotFound/>}/>
+
+            
         </>
     )
 )

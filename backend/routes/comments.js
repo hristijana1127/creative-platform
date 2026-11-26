@@ -22,7 +22,7 @@ router.post('/:postId/comments', authMiddleware, async(req, res) => {
         const newComment = new Comment({
             postId,
             userId: req.user.id,
-            commentText
+            commentText:text.trim()
         });
         await newComment.save();
         await newComment.populate('userId', 'username profilePicture');
@@ -72,7 +72,7 @@ router.delete('/:postId/comments/:commentId', authMiddleware, async(req, res) =>
         const isPostOwner = post && post.userId.toString() === req.user.id;
         const isAdmin = req.user.role === 'admin';
 
-        if(!isCommentAuthor && !isPostOwner && isAdmin){
+        if(!isCommentAuthor && !isPostOwner && !isAdmin){
             return res.status(403).json({message:"Not authorized to delete this comment"});
         }
         await Comment.findByIdAndDelete(commentId);

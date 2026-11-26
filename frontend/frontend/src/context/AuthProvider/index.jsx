@@ -9,13 +9,22 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+        const savedUser = localStorage.getItem("user");
         if(token){
-            setAuth({token})
-        }
+            setAuth({
+            token,
+            user:savedUser ? JSON.parse(savedUser) : null
+        });
+    }
         setIsLoading(false);
-    },[])
+    },[]);
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setAuth({});
+    };
     return(
-        <AuthContext.Provider value={{auth, setAuth, isLoading}}>
+        <AuthContext.Provider value={{auth, setAuth,logout, isLoading}}>
             {isLoading ? null : children}
         </AuthContext.Provider>
     )

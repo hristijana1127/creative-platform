@@ -39,6 +39,12 @@ export const ModalTitle = styled(Typography)(({theme}) => ({
     color: theme.palette.text.primary,
     fontWeight:600,
 }));
+
+
+export const ModalDescription = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+}));
+
 export const CloseIconButton = styled(IconButton)(({theme})=>({
     color: theme.palette.text.secondary,
 }));

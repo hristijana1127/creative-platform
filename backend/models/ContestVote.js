@@ -7,4 +7,10 @@ const contestVoteSchema = new mongoose.Schema({
     createdAt: {type: Date, default: Date.now}
 });
 
+contestVoteSchema.index({
+    contestId:1,userId:1,postId:1,
+    },
+    {unique:true,}
+);
+
 module.exports = mongoose.model('ContestVote', contestVoteSchema);

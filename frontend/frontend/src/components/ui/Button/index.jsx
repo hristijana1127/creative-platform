@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import {StyledButton} from "./styles"
-import { Children } from "react";
+
 
 const Button = ({
     variant,
     color,
     size,
-    onclick,
+    onClick,
     sx = {},
     children,
     ...props
